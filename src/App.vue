@@ -1,21 +1,29 @@
 <template>
   <div id="app">
-    <router-link to="/login" tag="a" >login</router-link>
-    <router-link to="/register" tag="a">register</router-link>
-    <router-link  to="/" tag="a">home</router-link>
     <router-view></router-view>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  components: {},
+};
 </script>
 <style>
+@import url("https://fonts.googleapis.com/css2?family=Fira+Sans:wght@600&display=swap");
 
+body,
+input,
+textarea,
+button {
+  font-family: "Fira Sans", sans-serif;
+}
 #app {
-  background-image: linear-gradient(rgb(216, 216, 216), rgb(248, 248, 248));
-  height: 100vh;
+  background-color: #d7e0e0;
+  min-height: 100vh;
+  height: 100%;
   width: 100%;
+  font-family: "Fira Sans", sans-serif;
 }
 
 html,
@@ -142,7 +150,7 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
-a{
-  margin-left:1rem ;
+a {
+  margin-left: 1rem;
 }
 </style>

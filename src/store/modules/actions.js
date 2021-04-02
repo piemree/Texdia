@@ -1,14 +1,11 @@
 import firebase from "firebase";
-import Vue from "vue";
 const db = firebase.firestore();
 const auth = firebase.auth();
-//const database=firebase.database().ref()
+
 export default {
-  setToken(vuexContext, token) {
-    Vue.$cookies.set("token", token);
-  },
-  removeToken() {
-    Vue.$cookies.remove("token");
+  removeToken(vuexContext) {
+    localStorage.removeItem("token");
+    vuexContext.commit("removeToken");
   },
   async registerNewUser(vuexContext, newUser) {
     let user = {
@@ -24,6 +21,7 @@ export default {
       newUser.email,
       newUser.password
     );
+    console.log(response);
     user.id = response.user.uid;
     await db
       .collection("users")
@@ -58,9 +56,12 @@ export default {
     );
 
     let token = response.user.refreshToken;
-    vuexContext.dispatch("setToken", token);
-
-    return response;
+    vuexContext.commit("setToken", token);
+    localStorage.setItem("token", token);
+    return token;
+  },
+  async logout(vuexContext) {
+    vuexContext.dispatch("removeToken");
   },
 
   async sendPost(vuexContext, Post) {
@@ -95,7 +96,6 @@ export default {
       const friendPosts = await friendRef.get();
 
       friendPosts.docs.map((post) => {
-        console.log(post.data());
         vuexContext.commit("setPosts", post.data());
       });
     });

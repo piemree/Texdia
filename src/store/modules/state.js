@@ -1,11 +1,5 @@
 export default {
-  currentUserInfo: {
-    id: null,
-    firstName: "",
-    lastName: "",
-    email: "",
-    username: "",
-    createdAt: "",
-  },
+  currentUserInfo:null,
+  token:localStorage.getItem("token"),
   posts: []
 };

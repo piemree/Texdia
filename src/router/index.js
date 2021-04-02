@@ -1,11 +1,11 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import VueRouteMiddleware from "vue-route-middleware";
-import VueCookies from "vue-cookies";
 import Register from "../views/auth/Register.vue";
+import store from "../store";
 import Login from "../views/auth/Login.vue";
 import Home from "../views/home/Home.vue";
-Vue.use(VueCookies);
+import firebase from "firebase"
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -13,55 +13,26 @@ const routes = [
     name: "home",
     path: "/",
     component: Home,
-    meta: {
-      middleware: [
-        (to, from, next) => {
-          let token = Vue.$cookies.get("token");
-          if (token) {
-            return next();
-          }
-          return next({
-            name: "login",
-          });
-        },
-      ],
+    beforeEnter(to, from, next) {
+      console.log(firebase.auth().currentUser);
+      alert(firebase.auth().currentUser.uid)
+      if (firebase.auth().currentUser) {
+        store.commit("clearPosts");
+        next(true);
+      } else {
+        next(false);
+      }
     },
   },
   {
     name: "register",
     path: "/register",
     component: Register,
-    meta: {
-      middleware: [
-        (to, from, next) => {
-          let token = Vue.$cookies.get("token");
-          if (token) {
-            return next({
-              name: "home",
-            });
-          }
-          return next();
-        },
-      ],
-    },
   },
   {
     name: "login",
     path: "/login",
     component: Login,
-    meta: {
-      middleware: [
-        (to, from, next) => {
-          let token = Vue.$cookies.get("token");
-          if (token) {
-            return next({
-              name: "home",
-            });
-          }
-          return next();
-        },
-      ],
-    },
   },
 ];
 
@@ -72,5 +43,3 @@ const router = new VueRouter({
 });
 
 export default router;
-
-router.beforeEach(VueRouteMiddleware());

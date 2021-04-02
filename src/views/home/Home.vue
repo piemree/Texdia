@@ -23,8 +23,6 @@
   </div>
 </template>
 <script>
-import firebase from "firebase";
-//import store from "../../store";
 export default {
   data() {
     return {
@@ -36,10 +34,8 @@ export default {
   },
   methods: {
     async signOut() {
-      let auth = firebase.auth();
-      await auth.signOut();
-      this.$store.dispatch("removeToken");
-      alert("user logged out");
+      await this.$store.dispatch("logout");
+
       this.$router.push("/login");
     },
     async submitPost() {
