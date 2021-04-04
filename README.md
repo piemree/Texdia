@@ -1,4 +1,4 @@
-# cli2-social-text
+# Texdia
 
 ## Project setup
 ```
