@@ -14,8 +14,6 @@ const routes = [
     path: "/",
     component: Home,
     beforeEnter(to, from, next) {
-      console.log(firebase.auth().currentUser);
-      alert(firebase.auth().currentUser.uid)
       if (firebase.auth().currentUser) {
         store.commit("clearPosts");
         next(true);

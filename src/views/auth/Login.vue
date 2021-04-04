@@ -47,7 +47,7 @@ export default {
     async login() {
       await this.$store.dispatch("loginUserEmailAndPassword", this.user);
 
-      alert("Successfully logged in");
+     
       this.$router.push("/");
     },
   },
@@ -100,7 +100,7 @@ export default {
   padding: 1rem 1rem;
   align-items: center;
   justify-content: space-between;
-  border: 1px solid #8e9494;
+  border: 1px solid var(--grey4);
   border-radius: 5px;
   width: 25rem;
 }

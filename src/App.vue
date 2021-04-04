@@ -5,12 +5,19 @@
 </template>
 
 <script>
-export default {
-  components: {},
-};
+export default {};
 </script>
 <style>
-@import url("https://fonts.googleapis.com/css2?family=Fira+Sans:wght@600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400&display=swap");
+
+:root {
+  --grey1: #fff;
+  --grey2: #e4eded;
+  --grey3: #d7e0e0;
+  --grey4: #bfc7c7;
+  --grey5: #9aa1a1;
+  --grey6: #272929;
+}
 
 body,
 input,
@@ -19,7 +26,7 @@ button {
   font-family: "Fira Sans", sans-serif;
 }
 #app {
-  background-color: #d7e0e0;
+  background-color: var(--grey1);
   min-height: 100vh;
   height: 100%;
   width: 100%;
@@ -153,4 +160,5 @@ table {
 a {
   margin-left: 1rem;
 }
+
 </style>

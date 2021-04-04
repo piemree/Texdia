@@ -98,6 +98,8 @@ export default {
       friendPosts.docs.map((post) => {
         vuexContext.commit("setPosts", post.data());
       });
+
+      return friendPosts
     });
   },
   async addFriend(vuexContext, friendId) {

@@ -1,29 +1,35 @@
 <template >
   <div class="home">
-    <h1>Merhaba {{ currentUser.firstName }}</h1>
-    <button @click="signOut">Sign out</button>
-    <div>
-      <label>add friend</label>
-      <input v-model="friendId" type="text" />
-      <button @click="addFriend">Add</button>
-    </div>
-    <form @submit.prevent="submitPost">
+    <nav class="nav-bar">
+      <Nav />
+    </nav>
+    <div class="main-content">
       <div>
-        <textarea v-model="post.content" cols="30" rows="10"></textarea>
-        <button type="submit">send</button>
+        <label>add friend</label>
+        <input v-model="friendId" type="text" />
+        <button @click="addFriend">Add</button>
       </div>
-    </form>
-
-    <div v-for="(post, i) in posts" :key="i">
-      <div>{{ post.userName }}--{{ post.postId }}</div>
-      <p>{{ post.textContent }}</p>
-      <div>{{ post.createdAt.toDate() }}</div>
-      <hr />
+      <form @submit.prevent="submitPost">
+        <div>
+          <textarea v-model="post.content" cols="30" rows="10"></textarea>
+          <button type="submit">send</button>
+        </div>
+      </form>
+      <div class="all-posts">
+        <Post class="post" v-for="(post, i) in posts" :key="i" :post="post" />
+      </div>
     </div>
+    <div class="chat-section"></div>
   </div>
 </template>
 <script>
+import Nav from "../../components/Nav";
+import Post from "../../components/Post";
 export default {
+  components: {
+    Nav,
+    Post,
+  },
   data() {
     return {
       post: {
@@ -33,11 +39,6 @@ export default {
     };
   },
   methods: {
-    async signOut() {
-      await this.$store.dispatch("logout");
-
-      this.$router.push("/login");
-    },
     async submitPost() {
       await this.$store.dispatch("sendPost", this.post);
       this.post.content = "";
@@ -61,12 +62,29 @@ export default {
   },
 };
 </script>
-<style >
-h1 {
-  font-size: 2rem;
+<style scoped >
+ .all-posts > .post:nth-child(n){
+  border-bottom: 1px solid var(--grey4);
+}
+
+.main-content {
+  padding: 1rem 0;
+  background-color: var(--grey2);
+}
+.chat-section {
+   position: relative;
+  width: 25rem;
+  background-color: var(--grey6);
+}
+.nav-bar {
+  position: relative;
+  width: 17rem;
+  background-color: var(--grey6);
 }
 .home {
   width: 100%;
-  height: 100vh;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 17rem 1fr 25rem;
 }
 </style>
