@@ -4,17 +4,19 @@
       <Nav />
     </nav>
     <div class="main-content">
-      <div>
-        <label>add friend</label>
-        <input v-model="friendId" type="text" />
-        <button @click="addFriend">Add</button>
-      </div>
-      <form @submit.prevent="submitPost">
-        <div>
-          <textarea v-model="post.content" cols="30" rows="10"></textarea>
-          <button type="submit">send</button>
+      <div class="search">
+        <div class="search-content">
+          <input
+            class="search-input"
+            placeholder="Search User"
+            v-model="friendId"
+            type="text"
+          />
         </div>
-      </form>
+      </div>
+     <div class="send-post">
+       <sendPost/>
+     </div>
       <div class="all-posts">
         <Post class="post" v-for="(post, i) in posts" :key="i" :post="post" />
       </div>
@@ -25,24 +27,21 @@
 <script>
 import Nav from "../../components/Nav";
 import Post from "../../components/Post";
+import sendPost from '../../components/sendPost'
 export default {
   components: {
     Nav,
     Post,
+    sendPost
   },
   data() {
     return {
-      post: {
-        content: "",
-      },
+    
       friendId: "",
     };
   },
   methods: {
-    async submitPost() {
-      await this.$store.dispatch("sendPost", this.post);
-      this.post.content = "";
-    },
+    
     addFriend() {
       this.$store.dispatch("addFriend", this.friendId);
     },
@@ -63,7 +62,50 @@ export default {
 };
 </script>
 <style scoped >
- .all-posts > .post:nth-child(n){
+
+
+.search-content {
+  width: 60%;
+  height: 100%;
+  position: relative;
+}
+.search {
+  width: 100%;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.search-content::before {
+  font-family: "Material Icons";
+  content: "search";
+  display: block;
+  position: absolute;
+  top: 30%;
+  right: 1rem;
+  z-index: 10;
+  height: 1rem;
+  width: 1rem;
+  font-size: 1.5rem;
+  color: var(--grey5);
+}
+.search-input {
+  padding: 0 2rem 0 0.5rem;
+  width: 100%;
+  height: 100%;
+  outline: none;
+  font-size: 1rem;
+  border-radius: 10px;
+  border: 1px solid var(--grey4);
+  position: relative;
+  background-color: var(--grey1);
+}
+.search-input:focus {
+  border: 1px solid var(--grey5);
+}
+
+.all-posts > .post:nth-child(n) {
   border-bottom: 1px solid var(--grey4);
 }
 
@@ -72,7 +114,7 @@ export default {
   background-color: var(--grey2);
 }
 .chat-section {
-   position: relative;
+  position: relative;
   width: 25rem;
   background-color: var(--grey6);
 }

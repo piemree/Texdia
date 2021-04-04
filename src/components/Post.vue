@@ -13,7 +13,9 @@
       <div class="context">
         <div class="user-info">
           <span class="username">{{ post.userName }}</span>
-          <span class="share-time">{{ time }} {{ timeChar }}</span>
+          <span class="share-time">{{
+            formatDate(post.createdAt.toDate())
+          }}</span>
         </div>
         <div class="text">
           <p>
@@ -23,89 +25,59 @@
       </div>
     </div>
     <div class="post-icons">
-      <div>
-        <span class="material-icons">repeat </span>
+      <div @click="repBg = !repBg">
+        <span :style="{ color: repBg ? 'green' : '' }" class="material-icons"
+          >repeat
+        </span>
       </div>
-      <div><span class="material-icons">favorite_border</span></div>
+      <div @click="favBg = !favBg">
+        <span v-if="!favBg" class="material-icons">favorite_border</span>
+        <span v-if="favBg" :style="{ color: 'red' }" class="material-icons"
+          >favorite</span
+        >
+      </div>
     </div>
   </div>
 </template>
-<script scoped>
+<script >
 export default {
   data() {
     return {
-      timeChar: "d",
-      time: 88888,
+      favBg: false,
+      repBg: false,
     };
   },
-  created() {
-   setTimeout(() => {
-      this.getPosts()
-   },4000)
-  },
   methods: {
-    getPosts() {
-      let vm = this;
+    formatDate(date) {
+      var d = new Date(date),
+        month = "" + (d.getMonth() + 1),
+        day = "" + d.getDate(),
+        year = d.getFullYear();
 
-      let nowMonth = new Date().getMonth();
-      let lastMonth = this.post.createdAt.toDate().getMonth();
-      let month = nowMonth - lastMonth;
-      if (month > 0) {
-        vm.timeChar = "M";
-        this.time = month;
-        return
-      }
+      if (month.length < 2) month = "0" + month;
+      if (day.length < 2) day = "0" + day;
 
-      let nowDay = new Date().getDay();
-      let lastDay = this.post.createdAt.toDate().getDay();
-      let day = nowDay - lastDay;
-      if (month <= 0 && day > 0) {
-        vm.timeChar = "d";
-        this.time = day;
-        return
-      }
-
-      let nowHour = new Date().getHours();
-      let lastHour = this.post.createdAt.toDate().getHours();
-      let hour = nowHour - lastHour;
-
-      if (day <= 0 && hour > 0) {
-        vm.timeChar = "h";
-        this.time = hour;
-        return
-      }
-
-      let nowMin = new Date().getMinutes();
-      let lastMin = this.post.createdAt.toDate().getMinutes();
-      let min = nowMin - lastMin;
-      if (hour <= 0 && min > 0) {
-        vm.timeChar = "m";
-        this.time = min;
-        return
-      }
-
-      let nowSec = new Date().getSeconds();
-      let lastSec = this.post.createdAt.toDate().getSeconds();
-      let second = nowSec - lastSec;
-      if (min <= 0 && second > 0) {
-        vm.timeChar = "s";
-        this.time = second;
-        return
-      } else {
-        this.time = 9999999;
-        return
-      }
+      return [year, month, day].join("-");
     },
   },
-
   props: {
     post: Object,
   },
 };
 </script>
-<style >
+<style scoped >
+.material-icons {
+  cursor: pointer;
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
 .share-time {
-  margin-left: 1rem;
+  display: block;
   color: var(--grey5);
 }
 .profile img {
@@ -127,13 +99,18 @@ export default {
 }
 .user-info {
   margin-bottom: 0.5rem;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
 }
 .username {
+  display: block;
   font-weight: 600;
 }
 .context {
   padding: 0 1rem;
   min-height: 100%;
+  min-width: 95%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -149,6 +126,7 @@ export default {
   display: flex;
   width: 100%;
   justify-content: space-around;
+  font-weight: 400;
 }
 .post {
   background-color: var(--grey1);
