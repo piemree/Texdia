@@ -10,18 +10,11 @@
         </div>
         <div class="context">
           <div class="text">
-            <textarea
-            cols="55"
-              placeholder="What's happening?"
-              class="post-input"
-            ></textarea>
+            <textarea placeholder="What's Happend?" class="post-input"></textarea>
           </div>
         </div>
       </div>
       <div class="post-bottom">
-        <div class="icons">
-          <span class="material-icons">repeat </span>
-        </div>
         <div>
           <button class="submit">Send</button>
         </div>
@@ -47,6 +40,24 @@ export default {
 };
 </script>
 <style scoped>
+.context {
+  min-width: 100%;
+}
+.text {
+  min-width: 100%;
+}
+.post-input {
+  margin-left: 1rem;
+  min-width: 80%;
+  padding: 1rem;
+  height: 10rem;
+  border: none;
+  outline: none;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  background-color: rgb(248, 248, 248);
+  resize: none;
+}
 .submit {
   width: 4rem;
   height: 2rem;
@@ -61,27 +72,11 @@ export default {
 .icons {
   margin-left: 3rem;
 }
-.post-input {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  min-width: 100%;
-  resize: vertical;
-  display: block;
-  max-width: 100%;
-  line-height: 1.5;
-  padding: 15px 15px 30px;
-  border: none;
-  outline: none;
-  margin-left: 1rem;
-}
-.post-input:focus {
-  border-bottom: 1px solid var(--grey5);
-}
+
 .post-bottom {
   display: flex;
   margin-top: 1rem;
-  justify-content: space-between;
+  justify-content: flex-end;
 }
 .post-context {
   display: flex;

@@ -4,6 +4,8 @@ import Register from "../views/auth/Register.vue";
 import store from "../store";
 import Login from "../views/auth/Login.vue";
 import Home from "../views/home/Home.vue";
+import Profile from "../views/profile/Profile.vue";
+
 import firebase from "firebase"
 
 Vue.use(VueRouter);
@@ -32,6 +34,12 @@ const routes = [
     path: "/login",
     component: Login,
   },
+  {
+    name:"profile",
+    path:"/user/:id",
+
+    component:Profile
+  }
 ];
 
 const router = new VueRouter({

@@ -1,8 +1,5 @@
 <template>
   <div class="post">
-    <!--  <div>{{ post.userName }}--{{ post.postId }}</div>
-    <p>{{ post.textContent }}</p>
-    <div>{{ post.createdAt.toDate() }}</div> -->
     <div class="post-context">
       <div class="profile">
         <img
@@ -25,6 +22,14 @@
       </div>
     </div>
     <div class="post-icons">
+      <div @click="commentBg = !commentBg">
+        <span
+          :style="{ color: commentBg ? 'lightblue' : '' }"
+          class="material-icons"
+        >
+          <span class="material-icons-outlined"> chat_bubble_outline </span>
+        </span>
+      </div>
       <div @click="repBg = !repBg">
         <span :style="{ color: repBg ? 'green' : '' }" class="material-icons"
           >repeat
@@ -43,6 +48,7 @@
 export default {
   data() {
     return {
+      commentBg: false,
       favBg: false,
       repBg: false,
     };
@@ -75,6 +81,8 @@ export default {
   -ms-user-select: none; /* Internet Explorer/Edge */
   user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome, Edge, Opera and Firefox */
+
+  color: var(--grey5);
 }
 .share-time {
   display: block;
@@ -110,7 +118,7 @@ export default {
 .context {
   padding: 0 1rem;
   min-height: 100%;
-  min-width: 95%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -129,8 +137,7 @@ export default {
   font-weight: 400;
 }
 .post {
-  background-color: var(--grey1);
-  min-width: 100%;
+  width: 100%;
   padding: 1rem 1rem 0.2rem 1rem;
   display: flex;
   flex-direction: column;
