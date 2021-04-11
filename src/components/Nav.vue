@@ -1,3 +1,22 @@
+<script>
+export default {
+  data() {
+    return {
+      showUserInfo:false
+    }
+  },
+  methods: {
+    async logout() {
+      await this.$store.dispatch("logout");
+      this.$router.push("/login");
+    },
+    goProfile() {
+      let id = this.$store.getters.getCurrentUserInfo.id;
+      this.$router.push(`/user/${id}`);
+    },
+  },
+};
+</script>
 <template >
   <div class="left-nav">
     <ul class="link-list">
@@ -27,37 +46,124 @@
         >
       </li>
       <li class="list-item">
-        <router-link class="link-item" tag="a" to="/profile">
+        <router-link class="link-item" tag="a" to="/user/1">
           <span class="material-icons item-icons">person</span>
           <span class="link-text">Profile</span></router-link
         >
       </li>
       <li class="tweet-button">
-       <button>
-         Tweet
-       </button>
+        <button>Tweet</button>
       </li>
+      <li @click="showUserInfo=!showUserInfo" class="list-item item-profile">
+        
+        <div class="link-item">
+          <span class="profile"
+            ><img
+              src="https://images.unsplash.com/photo-1529665253569-6d01c0eaf7b6?ixid=MXwxMjA3fDB8MHxzZWFyY2h8M3x8cHJvZmlsZXxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&w=1000&q=80"
+              alt=""
+          /></span>
+          <div class="name-username">
+          <div class="name">Emre</div>
+          <div class="username">@pjjemo</div>
+        </div>
+        </div>
+      </li>
+         <div v-show="showUserInfo" class="user">
+          <section class="infos">
+            <div class="info-item ">
+              <button >
+                Add an existing account
+              </button>
+            </div>
+            <div class="info-item ">
+              <button >
+                Log out @pjjemo
+              </button>
+            </div>
+          </section>
+        </div>
     </ul>
   </div>
 </template>
-<script>
-export default {
-  methods: {
-    async logout() {
-      await this.$store.dispatch("logout");
-      this.$router.push("/login");
-    },
-    goProfile() {
-      let id = this.$store.getters.getCurrentUserInfo.id;
-      this.$router.push(`/user/${id}`);
-    },
-  },
-};
-</script>
+
 
 <style  scoped>
-.tweet-button button{
-  margin: .5rem 0 0 1rem;
+.info-item button:hover{
+ background-color: var(--grey2);
+}
+.info-item button{
+width: 100%;
+height: 100%;
+border: none;
+outline: none;
+cursor: pointer;
+background-color: inherit;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.infos{
+  
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.info-item{
+  width: 100%;
+  height: 3rem;
+  border-top: 1px solid var(--grey4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.user{
+margin-top:.5rem ;
+  width: 100%;
+  height: 10rem;
+  background-color: var(--grey1);
+  border-radius: 1rem;
+  box-shadow: 1px 1px 10px  #999999;
+  
+}
+.item-profile{
+  width: 100% !important;
+  position: relative;
+}
+.name-username .username {
+  color: var(--grey5);
+}
+.name-username .name {
+  font-weight: 900;
+  font-size: 1rem;
+}
+.name-username {
+  width: 100%;
+  margin-left: 1rem;
+  
+}
+.profile img {
+  flex-shrink: 1;
+  min-width: 100%;
+  min-height: 100%;
+}
+.profile {
+  background-color: rgb(0, 0, 0);
+  min-width: 2.5rem;
+  min-height: 2.5rem;
+  max-width: 2.5rem;
+  max-height: 2.5rem;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  margin-left:1rem ;
+}
+.tweet-button button {
+  margin: 1rem 0.5rem;
   width: 100%;
   height: 100%;
   background-color: rgb(29, 161, 242);
@@ -69,11 +175,12 @@ export default {
   font-size: 1rem;
   cursor: pointer;
 }
-.tweet-button{
-    min-height: 3.5rem;
+.tweet-button {
+  min-height: 3.5rem;
   display: flex;
   align-items: center;
   padding: 0 1rem 0 0;
+  margin: 1rem 0;
 }
 .fire-icon {
   font-size: 2rem;
@@ -92,6 +199,13 @@ export default {
   padding: 0 1rem 0 0;
   width: fit-content;
   color: black;
+  cursor: pointer;
+  -webkit-touch-callout: none; 
+    -webkit-user-select: none; 
+     -khtml-user-select: none; 
+       -moz-user-select: none; 
+        -ms-user-select: none; 
+            user-select: none; 
 }
 .list-item:hover {
   border-radius: 2rem;
@@ -123,8 +237,12 @@ export default {
 .left-nav {
   background-color: inherit;
   max-width: 100%;
+
   height: 100%;
   display: flex;
   justify-content: flex-end;
+  position: fixed;
+  top: 0;
+  left: 0;
 }
 </style>

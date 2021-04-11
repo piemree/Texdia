@@ -1,3 +1,20 @@
+<script>
+export default {
+  data() {
+    return {
+      post: {
+        content: "",
+      },
+    };
+  },
+  methods: {
+    async submitPost() {
+      await this.$store.dispatch("sendPost", this.post);
+      this.post.content = "";
+    },
+  },
+};
+</script>
 <template>
   <form @submit.prevent="submitPost">
     <div class="create-post">
@@ -22,23 +39,7 @@
     </div>
   </form>
 </template>
-<script>
-export default {
-  data() {
-    return {
-      post: {
-        content: "",
-      },
-    };
-  },
-  methods: {
-    async submitPost() {
-      await this.$store.dispatch("sendPost", this.post);
-      this.post.content = "";
-    },
-  },
-};
-</script>
+
 <style scoped>
 .context {
   min-width: 100%;
@@ -89,11 +90,11 @@ export default {
   position: relative;
   background-color: var(--grey1);
   margin: 1rem 0;
-  padding: 1rem;
+  padding: 1rem 0;
 }
 
 .profile img {
-  flex-shrink: 0;
+  flex-shrink: 1;
   min-width: 100%;
   min-height: 100%;
 }

@@ -41,6 +41,7 @@ button {
 }
 .chat-section{
   border-left:1px solid var(--grey2) ;
+  background-color: inherit;
 }
 .nav-bar{
   border-right:1px solid var(--grey2) ;
@@ -60,7 +61,7 @@ button {
   max-width: 100%;
   font-family: "Fira Sans", sans-serif;
   display: grid;
-  grid-template-columns: 20rem 35rem auto;
+  grid-template-columns: 1.5fr 3fr 2fr;
 }
 
 html,

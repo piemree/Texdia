@@ -89,7 +89,7 @@ export default {
   color: var(--grey5);
 }
 .profile img {
-  flex-shrink: 0;
+  flex-shrink: 1;
   min-width: 100%;
   min-height: 100%;
 }
@@ -138,7 +138,7 @@ export default {
 }
 .post {
   width: 100%;
-  padding: 1rem 1rem 0.2rem 1rem;
+  padding: 1rem 0;
   display: flex;
   flex-direction: column;
   justify-content: center;

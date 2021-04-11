@@ -1,8 +1,14 @@
+<script>
+export default {};
+</script>
 <template >
   <div class="profile">
     <div class="profile-header">
       <div class="profile-picture">
-        <img src="https://images.unsplash.com/photo-1529665253569-6d01c0eaf7b6?ixid=MXwxMjA3fDB8MHxzZWFyY2h8M3x8cHJvZmlsZXxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&w=1000&q=80" alt="profile-pic" />
+        <img
+          src="https://images.unsplash.com/photo-1529665253569-6d01c0eaf7b6?ixid=MXwxMjA3fDB8MHxzZWFyY2h8M3x8cHJvZmlsZXxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&w=1000&q=80"
+          alt="profile-pic"
+        />
       </div>
       <div class="profile-info">
         <div class="setting-button">
@@ -23,56 +29,53 @@
     </div>
   </div>
 </template>
-<script>
-export default {};
-</script>
+
 <style scoped>
-.count{
+.count {
   font-weight: 900;
 }
-.followers{
+.followers {
   margin-left: 1rem;
 }
-.follow{
+.follow {
   display: flex;
   justify-content: flex-start;
 }
-.name-username .username{
+.name-username .username {
   color: var(--grey5);
 }
-.name-username .name{
+.name-username .name {
   font-weight: 900;
   font-size: 1.5rem;
 }
-.name-username{
+.name-username {
   width: 100%;
 }
-.setting-button button{
+.setting-button button {
   float: right;
   width: 8rem;
   height: 2.5rem;
-  border: .2rem solid var(--grey6);
+  border: 0.2rem solid var(--grey6);
   border-radius: 1.2rem;
   cursor: pointer;
 }
-.setting-button{
+.setting-button {
   width: 100%;
   position: relative;
 }
-.profile-info{
+.profile-info {
   width: 100%;
   height: 100%;
-  padding: .5rem 1rem;
+  padding: 0.5rem 1rem;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-
 }
-.profile-picture img{
+.profile-picture img {
   max-width: 100%;
   max-height: 100%;
-  border: .2rem solid var(--grey6);
-  border-radius: .5rem;
+  border: 0.2rem solid var(--grey6);
+  border-radius: 0.5rem;
   cursor: pointer;
 }
 .profile-picture {
@@ -82,10 +85,8 @@ export default {};
   display: flex;
   justify-content: center;
   align-items: center;
-  
 }
 .profile-header {
- 
   width: 100%;
   max-height: 30rem;
   height: 30rem;
