@@ -28,7 +28,7 @@ export default {
         >
       </li>
       <li class="list-item">
-        <router-link class="link-item" tag="a" to="/">
+        <router-link class="link-item" tag="a" to="/home">
           <span class="material-icons item-icons">home</span>
           <span class="link-text">Home</span></router-link
         >
@@ -46,7 +46,7 @@ export default {
         >
       </li>
       <li class="list-item">
-        <router-link class="link-item" tag="a" to="/user/1">
+        <router-link class="link-item" tag="a" to="/1">
           <span class="material-icons item-icons">person</span>
           <span class="link-text">Profile</span></router-link
         >
@@ -68,7 +68,7 @@ export default {
         </div>
         </div>
       </li>
-         <div v-show="showUserInfo" class="user">
+         <div  v-show="showUserInfo" class="user">
           <section class="infos">
             <div class="info-item ">
               <button >
@@ -76,7 +76,7 @@ export default {
               </button>
             </div>
             <div class="info-item ">
-              <button >
+              <button @click="logout" >
                 Log out @pjjemo
               </button>
             </div>
@@ -88,6 +88,23 @@ export default {
 
 
 <style  scoped>
+
+  @media only screen and (max-width: 1245px) {
+        .link-text{
+          display: none;
+        }
+        .name-username{
+          display: none;
+        }
+        .item-profile{
+          max-width: fit-content !important;
+        }
+        .link-list{
+          
+          align-items: center;
+        }
+    }
+
 .info-item button:hover{
  background-color: var(--grey2);
 }
@@ -126,7 +143,6 @@ margin-top:.5rem ;
   background-color: var(--grey1);
   border-radius: 1rem;
   box-shadow: 1px 1px 10px  #999999;
-  
 }
 .item-profile{
   width: 100% !important;
@@ -164,7 +180,7 @@ margin-top:.5rem ;
 }
 .tweet-button button {
   margin: 1rem 0.5rem;
-  width: 100%;
+  min-width: 100%;
   height: 100%;
   background-color: rgb(29, 161, 242);
   color: #fff;
@@ -229,15 +245,16 @@ margin-top:.5rem ;
   color: black;
 }
 .link-list {
-  width: 17rem;
+  min-width: 100px;
+  width: 100%;
   padding: 1rem;
   display: flex;
   flex-direction: column;
+  
 }
 .left-nav {
   background-color: inherit;
   max-width: 100%;
-
   height: 100%;
   display: flex;
   justify-content: flex-end;

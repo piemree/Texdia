@@ -1,15 +1,32 @@
+<script>
+export default {
+  data() {
+    return {
+      pathName: "",
+    };
+  },
+  watch: {
+    $route() {
+      let path = (this.pathName = window.location.pathname);
+      this.pathName = path.substr(path.lastIndexOf("/") + 1);
+    },
+  },
+  created() {
+     let path = (this.pathName = window.location.pathname);
+      this.pathName = path.substr(path.lastIndexOf("/") + 1);
+  },
+};
+</script>
 <template>
   <div class="header">
-    <h2 class="title">Anasayfa</h2>
+    <h2 class="title">{{ pathName }}</h2>
   </div>
 </template>
-<script>
-export default {};
-</script>
+
 <style >
-.title{
-    font-size: 1.7rem;
-    font-weight: 900;
+.title {
+  font-size: 1.7rem;
+  font-weight: 900;
 }
 .header {
   max-width: 100%;
@@ -23,6 +40,5 @@ export default {};
   padding: 0 1rem;
   background-color: #fff;
   z-index: 100;
-
 }
 </style>

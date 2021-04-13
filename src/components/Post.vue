@@ -1,15 +1,44 @@
+<script >
+export default {
+  data() {
+    return {
+      commentBg: false,
+      favBg: false,
+      repBg: false,
+    };
+  },
+  methods: {
+    formatDate(date) {
+      var d = new Date(date),
+        month = "" + (d.getMonth() + 1),
+        day = "" + d.getDate(),
+        year = d.getFullYear();
+
+      if (month.length < 2) month = "0" + month;
+      if (day.length < 2) day = "0" + day;
+
+      return [year, month, day].join("-");
+    },
+  },
+  props: {
+    post: Object,
+  },
+};
+</script>
 <template>
   <div class="post">
     <div class="post-context">
-      <div class="profile">
+      <router-link class="profile" tag="div" :to="post.userName">
         <img
           src="https://images.unsplash.com/photo-1529665253569-6d01c0eaf7b6?ixid=MXwxMjA3fDB8MHxzZWFyY2h8M3x8cHJvZmlsZXxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&w=1000&q=80"
           alt=""
         />
-      </div>
+      </router-link>
       <div class="context">
         <div class="user-info">
-          <span class="username">{{ post.userName }}</span>
+          <router-link class="username" tag="span" :to="post.userName" >
+            {{post.userName}}
+          </router-link>
           <span class="share-time">{{
             formatDate(post.createdAt.toDate())
           }}</span>
@@ -44,33 +73,7 @@
     </div>
   </div>
 </template>
-<script >
-export default {
-  data() {
-    return {
-      commentBg: false,
-      favBg: false,
-      repBg: false,
-    };
-  },
-  methods: {
-    formatDate(date) {
-      var d = new Date(date),
-        month = "" + (d.getMonth() + 1),
-        day = "" + d.getDate(),
-        year = d.getFullYear();
 
-      if (month.length < 2) month = "0" + month;
-      if (day.length < 2) day = "0" + day;
-
-      return [year, month, day].join("-");
-    },
-  },
-  props: {
-    post: Object,
-  },
-};
-</script>
 <style scoped >
 .material-icons {
   cursor: pointer;
@@ -104,6 +107,7 @@ export default {
   justify-content: center;
   align-items: center;
   overflow: hidden;
+  cursor: pointer;
 }
 .user-info {
   margin-bottom: 0.5rem;
@@ -114,6 +118,7 @@ export default {
 .username {
   display: block;
   font-weight: 600;
+  cursor: pointer;
 }
 .context {
   padding: 0 1rem;

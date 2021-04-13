@@ -1,31 +1,68 @@
 <script>
-export default {};
+import Post from "../../components/Post";
+export default {
+  data() {
+    return {
+      user: {
+        displayName: "Emre",
+        userName: "pjjemo",
+        profileUrl:
+          "https://images.unsplash.com/photo-1529665253569-6d01c0eaf7b6?ixid=MXwxMjA3fDB8MHxzZWFyY2h8M3x8cHJvZmlsZXxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&w=1000&q=80",
+        createdAt: "",
+        followers: "120",
+        following: "3",
+      },
+    };
+  },
+  methods: {
+      posts() {
+      this.$store.dispatch("getCurrenUserPosts")
+
+     
+    },
+  },
+ /*  computed: {
+    posts() {
+      this.$store.dispatch("getCurrenUserPosts")
+
+      return "a"
+    },
+  }, */
+  components: {
+    Post,
+  },
+};
 </script>
 <template >
   <div class="profile">
     <div class="profile-header">
       <div class="profile-picture">
-        <img
-          src="https://images.unsplash.com/photo-1529665253569-6d01c0eaf7b6?ixid=MXwxMjA3fDB8MHxzZWFyY2h8M3x8cHJvZmlsZXxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&w=1000&q=80"
-          alt="profile-pic"
-        />
+        <img :src="user.profileUrl" alt="profile-pic" />
       </div>
       <div class="profile-info">
         <div class="setting-button">
-          <button>Setting</button>
+          <button @click="posts">Setting</button>
         </div>
         <div class="name-username">
-          <div class="name">Emre</div>
-          <div class="username">@pjjemo</div>
+          <div class="name">{{ user.displayName }}</div>
+          <div class="username">@{{ user.userName }}</div>
         </div>
         <div class="join-at">
           <p>Mart 2020</p>
         </div>
         <div class="follow">
-          <div class="my-follow"><b class="count">60</b> takip edilen</div>
-          <div class="followers"><b class="count">110</b> Takipçi</div>
+          <div class="my-follow">
+            <b class="count">{{ user.following }}</b> takip edilen
+          </div>
+          <div class="followers">
+            <b class="count">{{ user.followers }}</b> Takipçi
+          </div>
         </div>
       </div>
+    </div>
+
+    <div class="all-posts">
+      <Post class="post" v-for="(post, i) in posts" :key="i" :post="post" />
     </div>
   </div>
 </template>
@@ -66,7 +103,6 @@ export default {};
 .profile-info {
   width: 100%;
   height: 100%;
-  padding: 0.5rem 1rem;
   display: flex;
   flex-direction: column;
   justify-content: space-around;

@@ -1,28 +1,33 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Register from "../views/auth/Register.vue";
-import store from "../store";
 import Login from "../views/auth/Login.vue";
 import Home from "../views/home/Home.vue";
 import Profile from "../views/profile/Profile.vue";
+import Index from "../views/index.vue";
 
-import firebase from "firebase"
 
 Vue.use(VueRouter);
 
 const routes = [
+
   {
-    name: "home",
+    name: "index",
     path: "/",
-    component: Home,
-    beforeEnter(to, from, next) {
-      if (firebase.auth().currentUser) {
-        store.commit("clearPosts");
-        next(true);
-      } else {
-        next(false);
+    redirect:"/home",
+    children:[
+      {
+        name: "home",
+        path: "/home",
+        component: Home,
+      },
+      {
+        name:"profile",
+        path:"/user/:id",
+        component:Profile
       }
-    },
+    ],
+    component: Index,
   },
   {
     name: "register",
@@ -34,12 +39,7 @@ const routes = [
     path: "/login",
     component: Login,
   },
-  {
-    name:"profile",
-    path:"/user/:id",
 
-    component:Profile
-  }
 ];
 
 const router = new VueRouter({

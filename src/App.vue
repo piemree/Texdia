@@ -1,28 +1,17 @@
 <template>
   <div id="app">
-     <nav class="nav-bar">
-      <Nav />
-    </nav>
-    <div class="app-main-content">
-      <MainHeader/>
+ 
     <router-view></router-view>
-    </div>
-    <nav class="chat-section"></nav>
-  </div>
+   </div>
 </template>
 
 <script>
-import Nav from './components/Nav'
-import MainHeader from './components/MainHeader'
-export default {
-  components:{
-    Nav,
-    MainHeader
-  }
-};
+export default {};
 </script>
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400&display=swap");
+
+
 
 :root {
   --grey1: #fff;
@@ -39,29 +28,13 @@ textarea,
 button {
   font-family: "Fira Sans", sans-serif;
 }
-.chat-section{
-  border-left:1px solid var(--grey2) ;
-  background-color: inherit;
-}
-.nav-bar{
-  border-right:1px solid var(--grey2) ;
-  position: sticky;
-  top: 0;
-  left: 0;
-}
-.app-main-content{
-  position: relative;
-  width: 100%;
 
-}
 #app {
   background-color: var(--grey1);
   min-height: 100vh;
   height: 100%;
   max-width: 100%;
   font-family: "Fira Sans", sans-serif;
-  display: grid;
-  grid-template-columns: 1.5fr 3fr 2fr;
 }
 
 html,
@@ -191,5 +164,4 @@ table {
 a {
   margin-left: 1rem;
 }
-
 </style>
