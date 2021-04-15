@@ -5,24 +5,18 @@ export default {};
   <div class="right-nav">
     <div class="search">
       <div class="search-content">
-        <input
-          class="search-input"
-          placeholder="Search User"
-          v-model="friendId"
-          type="text"
-        />
+        <input class="search-input" placeholder="Search User" type="text" />
       </div>
     </div>
   </div>
 </template>
 
 <style>
-
 .search-content {
   width: 80%;
   height: 100%;
   position: relative;
-  margin-top:1rem ;
+  margin-top: 1rem;
 }
 .search {
   width: 100%;

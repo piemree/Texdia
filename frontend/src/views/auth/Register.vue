@@ -1,3 +1,29 @@
+<script>
+export default {
+  name: "Register",
+  data() {
+    return {
+      newUser: {
+        email: "",
+        login: "",
+        password: "",
+        password2: "",
+      },
+      
+    };
+  },
+  methods: {
+    async register() {
+      await this.$store.dispatch("registerNewUser", this.newUser);
+    },
+  },
+  computed:{
+    errors(){
+      return this.$store.getters.getErrors
+    }
+  }
+};
+</script>
 <template>
   <div class="register-page">
     <h3 class="form-header">REGISTER</h3>
@@ -57,32 +83,7 @@
     </div>
   </div>
 </template>
-<script>
-export default {
-  name: "Register",
-  data() {
-    return {
-      newUser: {
-        email: "",
-        login: "",
-        password: "",
-        password2: "",
-      },
-      
-    };
-  },
-  methods: {
-    async register() {
-      await this.$store.dispatch("registerNewUser", this.newUser);
-    },
-  },
-  computed:{
-    errors(){
-      return this.$store.getters.getErrors
-    }
-  }
-};
-</script>
+
 <style scoped>
 .error {
   color: red;
@@ -110,12 +111,10 @@ export default {
 .form-input {
   height: 2rem;
   width: 90%;
-
   border: none;
   border-bottom: 1px solid var(--grey4);
   margin: 1rem 0;
   padding: 0 0.5rem;
-
   outline: none;
 }
 .input-content {

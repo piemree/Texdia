@@ -1,34 +1,8 @@
-<script >
-export default {
-  data() {
-    return {
-      commentBg: false,
-      favBg: false,
-      repBg: false,
-    };
-  },
-  methods: {
-    formatDate(date) {
-      var d = new Date(date),
-        month = "" + (d.getMonth() + 1),
-        day = "" + d.getDate(),
-        year = d.getFullYear();
 
-      if (month.length < 2) month = "0" + month;
-      if (day.length < 2) day = "0" + day;
-
-      return [year, month, day].join("-");
-    },
-  },
-  props: {
-    post: Object,
-  },
-};
-</script>
 <template>
   <div class="post">
     <div class="post-context">
-      <router-link class="profile" tag="div" :to="post.userName">
+      <router-link class="profile" tag="div" to="/">
         <img
           src="https://images.unsplash.com/photo-1529665253569-6d01c0eaf7b6?ixid=MXwxMjA3fDB8MHxzZWFyY2h8M3x8cHJvZmlsZXxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&w=1000&q=80"
           alt=""
@@ -36,39 +10,30 @@ export default {
       </router-link>
       <div class="context">
         <div class="user-info">
-          <router-link class="username" tag="span" :to="post.userName" >
-            {{post.userName}}
+          <router-link class="username" tag="span" to="/username">
+            {{}}
           </router-link>
-          <span class="share-time">{{
-            formatDate(post.createdAt.toDate())
-          }}</span>
+          <span class="share-time">date</span>
         </div>
         <div class="text">
           <p>
-            {{ post.textContent }}
+            {{}}
           </p>
         </div>
       </div>
     </div>
     <div class="post-icons">
-      <div @click="commentBg = !commentBg">
-        <span
-          :style="{ color: commentBg ? 'lightblue' : '' }"
-          class="material-icons"
-        >
+      <div>
+        <span class="material-icons">
           <span class="material-icons-outlined"> chat_bubble_outline </span>
         </span>
       </div>
-      <div @click="repBg = !repBg">
-        <span :style="{ color: repBg ? 'green' : '' }" class="material-icons"
-          >repeat
-        </span>
+      <div >
+        <span class="material-icons">repeat </span>
       </div>
-      <div @click="favBg = !favBg">
-        <span v-if="!favBg" class="material-icons">favorite_border</span>
-        <span v-if="favBg" :style="{ color: 'red' }" class="material-icons"
-          >favorite</span
-        >
+      <div >
+        <span class="material-icons">favorite_border</span>
+      
       </div>
     </div>
   </div>

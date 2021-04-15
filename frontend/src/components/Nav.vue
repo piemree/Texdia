@@ -2,17 +2,15 @@
 export default {
   data() {
     return {
-      showUserInfo:false
-    }
+      showUserInfo: false,
+    };
   },
   methods: {
-    async logout() {
-      await this.$store.dispatch("logout");
-      this.$router.push("/login");
+    logout() {
+      this.$store.dispatch("logoutUser");
     },
     goProfile() {
-      let id = this.$store.getters.getCurrentUserInfo.id;
-      this.$router.push(`/user/${id}`);
+     
     },
   },
 };
@@ -54,8 +52,7 @@ export default {
       <li class="tweet-button">
         <button>Tweet</button>
       </li>
-      <li @click="showUserInfo=!showUserInfo" class="list-item item-profile">
-        
+      <li @click="showUserInfo = !showUserInfo" class="list-item item-profile">
         <div class="link-item">
           <span class="profile"
             ><img
@@ -63,64 +60,57 @@ export default {
               alt=""
           /></span>
           <div class="name-username">
-          <div class="name">Emre</div>
-          <div class="username">@pjjemo</div>
-        </div>
+            <div class="name">Emre</div>
+            <div class="username">@pjjemo</div>
+          </div>
         </div>
       </li>
-         <div  v-show="showUserInfo" class="user">
-          <section class="infos">
-            <div class="info-item ">
-              <button >
-                Add an existing account
-              </button>
-            </div>
-            <div class="info-item ">
-              <button @click="logout" >
-                Log out @pjjemo
-              </button>
-            </div>
-          </section>
-        </div>
+      <div v-show="showUserInfo" class="user">
+        <section class="infos">
+          <div class="info-item">
+            <button>Add an existing account</button>
+          </div>
+          <div class="info-item">
+            <button @click="logout">Log out @pjjemo</button>
+          </div>
+        </section>
+      </div>
     </ul>
   </div>
 </template>
 
 
 <style  scoped>
-
-  @media only screen and (max-width: 1245px) {
-        .link-text{
-          display: none;
-        }
-        .name-username{
-          display: none;
-        }
-        .item-profile{
-          max-width: fit-content !important;
-        }
-        .link-list{
-          
-          align-items: center;
-        }
-    }
-
-.info-item button:hover{
- background-color: var(--grey2);
+@media only screen and (max-width: 1245px) {
+  .link-text {
+    display: none;
+  }
+  .name-username {
+    display: none;
+  }
+  .item-profile {
+    max-width: fit-content !important;
+  }
+  .link-list {
+    align-items: center;
+  }
 }
-.info-item button{
-width: 100%;
-height: 100%;
-border: none;
-outline: none;
-cursor: pointer;
-background-color: inherit;
+
+.info-item button:hover {
+  background-color: var(--grey2);
+}
+.info-item button {
+  width: 100%;
+  height: 100%;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background-color: inherit;
   display: flex;
   justify-content: flex-start;
   align-items: center;
 }
-.infos{
-  
+.infos {
   height: 100%;
   width: 100%;
   display: flex;
@@ -128,7 +118,7 @@ background-color: inherit;
   justify-content: center;
   align-items: center;
 }
-.info-item{
+.info-item {
   width: 100%;
   height: 3rem;
   border-top: 1px solid var(--grey4);
@@ -136,15 +126,15 @@ background-color: inherit;
   justify-content: center;
   align-items: center;
 }
-.user{
-margin-top:.5rem ;
+.user {
+  margin-top: 0.5rem;
   width: 100%;
   height: 10rem;
   background-color: var(--grey1);
   border-radius: 1rem;
-  box-shadow: 1px 1px 10px  #999999;
+  box-shadow: 1px 1px 10px #999999;
 }
-.item-profile{
+.item-profile {
   width: 100% !important;
   position: relative;
 }
@@ -158,7 +148,6 @@ margin-top:.5rem ;
 .name-username {
   width: 100%;
   margin-left: 1rem;
-  
 }
 .profile img {
   flex-shrink: 1;
@@ -176,7 +165,7 @@ margin-top:.5rem ;
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  margin-left:1rem ;
+  margin-left: 1rem;
 }
 .tweet-button button {
   margin: 1rem 0.5rem;
@@ -216,12 +205,12 @@ margin-top:.5rem ;
   width: fit-content;
   color: black;
   cursor: pointer;
-  -webkit-touch-callout: none; 
-    -webkit-user-select: none; 
-     -khtml-user-select: none; 
-       -moz-user-select: none; 
-        -ms-user-select: none; 
-            user-select: none; 
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 .list-item:hover {
   border-radius: 2rem;
@@ -250,7 +239,6 @@ margin-top:.5rem ;
   padding: 1rem;
   display: flex;
   flex-direction: column;
-  
 }
 .left-nav {
   background-color: inherit;
