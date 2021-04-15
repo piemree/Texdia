@@ -44,4 +44,11 @@ export default {
     return response;
   },
 
+  logoutUser(vuexContext) {
+    localStorage.removeItem("jwtToken");
+    setAuthHeader();
+    vuexContext.commit("setUser", null);
+    vuexContext.commit("isAuth", false);
+    router.push("/login");
+  },
 };

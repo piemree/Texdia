@@ -5,6 +5,9 @@ getErrors(state){
 getLoginErrors(state){
   return state.loginErrors
 },
+getToken(state){
+  return state.token
+},
 getUser(state){
   return state.user
 },
