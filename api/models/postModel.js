@@ -4,7 +4,7 @@ const { Schema } = mongoose;
 const postSchema = new Schema(
   {
     user: {
-      type: Object,
+      type: Schema.Types.Object,
       required: true,
     },
     text: {

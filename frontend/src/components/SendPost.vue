@@ -3,14 +3,13 @@ export default {
   data() {
     return {
       post: {
-        content: "",
+        text: "",
       },
     };
   },
   methods: {
     async submitPost() {
-      await this.$store.dispatch("sendPost", this.post);
-      this.post.content = "";
+       await this.$store.dispatch("addPost",this.post.text)
     },
   },
 };
@@ -27,7 +26,11 @@ export default {
         </div>
         <div class="context">
           <div class="text">
-            <textarea placeholder="What's Happend?" class="post-input"></textarea>
+            <textarea
+            v-model="post.text"
+              placeholder="What's Happend?"
+              class="post-input"
+            ></textarea>
           </div>
         </div>
       </div>
