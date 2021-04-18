@@ -8,13 +8,17 @@ const bcrypt = require("bcrypt");
 const saltRounds = 8;
 
 router.post("/register", async (req, res) => {
-  const { isValid, errors } = validateUser(req.body);
+  const { errors } = validateUser(req.body);
 
-  if (!isValid) {
-    let user = await User.findOne({ email: req.body.email });
-    if (user) errors.email = "email was used";
-    res.status(404).json({ errors: errors });
-  }
+  let email = await User.findOne({ email: req.body.email });
+  let login = await User.findOne({ login: req.body.login });
+
+  if (email) errors.email = "email was used";
+  if (login) errors.login = "login was used";
+  if (Object.keys(errors).length !== 0)
+    return res.status(404).json({ errors: errors });
+
+  console.log(errors);
 
   let hashedPassword = await bcrypt.hashSync(req.body.password, saltRounds);
 

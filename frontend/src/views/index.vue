@@ -49,6 +49,7 @@ min-width: 8rem;
   min-width: 623px;
   grid-column-start: 2;
   grid-column-end: 3;
+  padding: 1rem;
   border-left: 1px solid var(--grey2);
   border-right: 1px solid var(--grey2);
 }

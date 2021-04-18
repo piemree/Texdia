@@ -15,6 +15,7 @@ const userSchema = new Schema(
     login: {
       type: String,
       required: true,
+      unique: true,
     },
     followers:[],
     following:[]

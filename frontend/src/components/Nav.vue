@@ -5,12 +5,14 @@ export default {
       showUserInfo: false,
     };
   },
+  computed: {
+    user() {
+      return this.$store.getters.getUser;
+    },
+  },
   methods: {
     logout() {
       this.$store.dispatch("logoutUser");
-    },
-    goProfile() {
-     
     },
   },
 };
@@ -44,7 +46,7 @@ export default {
         >
       </li>
       <li class="list-item">
-        <router-link class="link-item" tag="a" to="/1">
+        <router-link class="link-item" tag="a" :to="`/profile/${user.login}`">
           <span class="material-icons item-icons">person</span>
           <span class="link-text">Profile</span></router-link
         >
@@ -60,8 +62,7 @@ export default {
               alt=""
           /></span>
           <div class="name-username">
-            <div class="name">Emre</div>
-            <div class="username">@pjjemo</div>
+            <div class="name">{{ user.login }}</div>
           </div>
         </div>
       </li>
@@ -71,7 +72,7 @@ export default {
             <button>Add an existing account</button>
           </div>
           <div class="info-item">
-            <button @click="logout">Log out @pjjemo</button>
+            <button @click="logout">Log out @{{user.login}}</button>
           </div>
         </section>
       </div>

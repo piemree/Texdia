@@ -10,6 +10,7 @@ export default {
       router.push("/login");
       vuexContext.commit("setErrors", {});
     } catch (error) {
+      console.log(error.response);
       vuexContext.commit("setErrors", error.response.data.errors);
     }
   },
@@ -58,9 +59,33 @@ export default {
       let post = await axios.post("http://localhost:5000/api/posts/add", {
         text,
       });
+      vuexContext.commit("clearPosts");
+      await vuexContext.dispatch("getAllPosts");
       return post;
     } catch (error) {
       console.log(error);
     }
+  },
+
+  //getting all posts
+  async getAllPosts(vuexContext) {
+    try {
+      let posts = await axios.get("http://localhost:5000/api/posts/");
+
+      vuexContext.commit("setPosts", posts.data);
+    } catch (error) {
+      console.log(error.response);
+    }
+  },
+
+  //get spesific user
+  async getUserAndPosts(vuexContext, user) {
+    let userProfile = await axios.get(
+      `http://localhost:5000/api/posts/${user}`
+    );
+
+   
+      vuexContext.commit("setUserProfile",userProfile.data)
+    return userProfile
   },
 };

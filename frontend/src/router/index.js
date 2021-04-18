@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import Register from "../views/auth/Register.vue";
 import Login from "../views/auth/Login.vue";
 import Home from "../views/home/Home.vue";
+import ErrorPage from "../views/Error.vue";
 import Profile from "../views/profile/Profile.vue";
 import Index from "../views/index.vue";
 import store from "../store/index";
@@ -15,7 +16,6 @@ const routes = [
     path: "/",
     redirect: "/home",
     beforeEnter: (to, from, next) => {
-      console.log(store.getters.getAuthState, "home");
       store.getters.getAuthState ? next(true) : next("/login");
     },
     children: [
@@ -26,7 +26,7 @@ const routes = [
       },
       {
         name: "profile",
-        path: "/user/:id",
+        path: "/profile/:id",
         component: Profile,
       },
     ],
@@ -55,6 +55,11 @@ const routes = [
         next(true);
       }
     },
+  },
+  {
+    name: "error",
+    path: "/**",
+    component: ErrorPage,
   },
 ];
 

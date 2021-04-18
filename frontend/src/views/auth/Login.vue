@@ -8,20 +8,18 @@ export default {
         email: "",
         password: "",
       },
+      
     };
   },
   methods: {
-     login() {
-       this.$store.dispatch("loginEmailAndPassword", this.user);
+    login() {
+      this.$store.dispatch("loginEmailAndPassword", this.user);
     },
   },
   computed: {
     errors() {
       return this.$store.getters.getLoginErrors;
     },
-  },
-  created() {
-    console.log(this.$store.getters.getAuthState,"created");
   },
 };
 </script>
@@ -39,6 +37,7 @@ export default {
             placeholder="email"
             type="text"
             v-model="user.email"
+            
           />
           <h1 class="error">{{ errors.email }}</h1>
         </div>

@@ -1,23 +1,49 @@
+<script>
+export default {
+  data() {
+    return {
+      options: {
+        year: "numeric",
+        weekday: "long",
+        day: "numeric",
+        month: "long",
+        hour: "numeric",
+        minute: "numeric",
+      },
+    };
+  },
 
+  computed: {
+    profile() {
+      return this.$store.getters.getimageSrc;
+    },
+  },
+  props: {
+    post: {
+      type: Object,
+      required: true,
+    },
+  },
+};
+</script>
 <template>
   <div class="post">
     <div class="post-context">
       <router-link class="profile" tag="div" to="/">
-        <img
-          src="https://images.unsplash.com/photo-1529665253569-6d01c0eaf7b6?ixid=MXwxMjA3fDB8MHxzZWFyY2h8M3x8cHJvZmlsZXxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&w=1000&q=80"
-          alt=""
-        />
+        <img :src="profile" alt="profile" />
       </router-link>
       <div class="context">
         <div class="user-info">
-          <router-link class="username" tag="span" to="/username">
-            {{}}
+          <router-link class="username" tag="span" :to="`/profile/${post.user.login}`">
+            {{ post.user.login }}
           </router-link>
-          <span class="share-time">date</span>
+          <span class="share-time">{{
+            new Date(post.createdAt).toLocaleString("en-US", options)
+          }}</span>
         </div>
         <div class="text">
           <p>
-            {{}}
+            {{ post.text }}
           </p>
         </div>
       </div>
@@ -28,18 +54,20 @@
           <span class="material-icons-outlined"> chat_bubble_outline </span>
         </span>
       </div>
-      <div >
+      <div>
         <span class="material-icons">repeat </span>
       </div>
-      <div >
+      <div>
         <span class="material-icons">favorite_border</span>
-      
       </div>
     </div>
   </div>
 </template>
 
 <style scoped >
+.text {
+  margin: 1rem 0;
+}
 .material-icons {
   cursor: pointer;
   -webkit-touch-callout: none; /* iOS Safari */
@@ -54,6 +82,7 @@
 }
 .share-time {
   display: block;
+  font-size: 12px;
   color: var(--grey5);
 }
 .profile img {

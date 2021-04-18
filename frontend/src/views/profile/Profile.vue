@@ -3,6 +3,11 @@ import Post from "../../components/Post";
 export default {
   data() {
     return {
+      options: {
+        year: "numeric",
+        day: "numeric",
+        month: "long",
+      },
       user: {
         displayName: "Emre",
         userName: "pjjemo",
@@ -15,21 +20,20 @@ export default {
     };
   },
   methods: {
-      posts() {
-      this.$store.dispatch("getCurrenUserPosts")
-
-     
+    posts() {
+      this.$store.dispatch("getCurrenUserPosts");
     },
   },
- /*  computed: {
-    posts() {
-      this.$store.dispatch("getCurrenUserPosts")
-
-      return "a"
-    },
-  }, */
   components: {
     Post,
+  },
+  async created() {
+    await this.$store.dispatch("getUserAndPosts", this.$route.params.id);
+  },
+  computed: {
+    userProfile() {
+      return this.$store.getters.getUserProfile;
+    },
   },
 };
 </script>
@@ -44,30 +48,40 @@ export default {
           <button @click="posts">Setting</button>
         </div>
         <div class="name-username">
-          <div class="name">{{ user.displayName }}</div>
-          <div class="username">@{{ user.userName }}</div>
+          <div class="name">{{ userProfile.user.login }}</div>
         </div>
-        <div class="join-at">
-          <p>Mart 2020</p>
+        <div class="created-at">
+          <p>
+            {{
+              new Date(userProfile.user.createdAt).toLocaleString(
+                "en-US",
+                options
+              )
+            }}
+          </p>
         </div>
         <div class="follow">
           <div class="my-follow">
-            <b class="count">{{ user.following }}</b> takip edilen
+            <b class="count">{{ userProfile.user.following.length }}</b> takip
+            edilen
           </div>
           <div class="followers">
-            <b class="count">{{ user.followers }}</b> Takipçi
+            <b class="count">{{ userProfile.user.followers.length }}</b> Takipçi
           </div>
         </div>
       </div>
     </div>
 
     <div class="all-posts">
-      <Post class="post" v-for="(post, i) in posts" :key="i" :post="post" />
+      <Post class="post" v-for="(post, i) in userProfile.posts" :key="i" :post="post" />
     </div>
   </div>
 </template>
 
 <style scoped>
+.created-at {
+  font-size: 1rem;
+}
 .count {
   font-weight: 900;
 }
