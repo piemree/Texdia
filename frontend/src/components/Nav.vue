@@ -14,6 +14,7 @@ export default {
     logout() {
       this.$store.dispatch("logoutUser");
     },
+    
   },
 };
 </script>
@@ -21,7 +22,7 @@ export default {
   <div class="left-nav">
     <ul class="link-list">
       <li class="list-item">
-        <router-link class="icon" tag="a" to="/"
+        <router-link class="icon" tag="a" to="/home"
           ><span class="material-icons fire-icon">
             local_fire_department
           </span></router-link
@@ -51,6 +52,7 @@ export default {
           <span class="link-text">Profile</span></router-link
         >
       </li>
+     
       <li class="tweet-button">
         <button>Tweet</button>
       </li>
@@ -72,7 +74,7 @@ export default {
             <button>Add an existing account</button>
           </div>
           <div class="info-item">
-            <button @click="logout">Log out @{{user.login}}</button>
+            <button @click="logout">Log out @{{ user.login }}</button>
           </div>
         </section>
       </div>

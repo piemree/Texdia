@@ -1,5 +1,7 @@
 <script>
 import Post from "../../components/Post";
+import Spinner from "vue-simple-spinner";
+
 export default {
   data() {
     return {
@@ -8,14 +10,10 @@ export default {
         day: "numeric",
         month: "long",
       },
+      spinner: true,
       user: {
-        displayName: "Emre",
-        userName: "pjjemo",
         profileUrl:
           "https://images.unsplash.com/photo-1529665253569-6d01c0eaf7b6?ixid=MXwxMjA3fDB8MHxzZWFyY2h8M3x8cHJvZmlsZXxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&w=1000&q=80",
-        createdAt: "",
-        followers: "120",
-        following: "3",
       },
     };
   },
@@ -23,30 +21,54 @@ export default {
     posts() {
       this.$store.dispatch("getCurrenUserPosts");
     },
+    async follow() {
+      await this.$store.dispatch("followUser", this.userProfile.user._id);
+    },
+    async unfollow() {
+      await this.$store.dispatch("unfollowUser", this.userProfile.user._id);
+    },
   },
   components: {
     Post,
+    Spinner,
   },
   async created() {
     await this.$store.dispatch("getUserAndPosts", this.$route.params.id);
+    this.spinner = false;
   },
   computed: {
     userProfile() {
       return this.$store.getters.getUserProfile;
+    },
+    isFollow(){
+      return this.$store.getters.getIsFollow
+    }
+  },
+  watch: {
+    async $route() {
+      this.spinner = true;
+      await this.$store.dispatch("getUserAndPosts", this.$route.params.id);
+      this.spinner = false;
     },
   },
 };
 </script>
 <template >
   <div class="profile">
-    <div class="profile-header">
+    <Spinner v-if="spinner" size="50" style="padding: 10rem"></Spinner>
+    <div v-else class="profile-header">
       <div class="profile-picture">
         <img :src="user.profileUrl" alt="profile-pic" />
       </div>
       <div class="profile-info">
-        <div class="setting-button">
-          <button @click="posts">Setting</button>
+        <div v-if="userProfile.isMe" class="setting-button">
+          <button>Settings</button>
         </div>
+        <div v-else class="setting-button">
+          <button v-if="!isFollow"  @click="follow">Follow</button>
+          <button v-else @click="unfollow">Unfollow</button>
+        </div>
+
         <div class="name-username">
           <div class="name">{{ userProfile.user.login }}</div>
         </div>
@@ -73,7 +95,14 @@ export default {
     </div>
 
     <div class="all-posts">
-      <Post class="post" v-for="(post, i) in userProfile.posts" :key="i" :post="post" />
+      <Spinner v-if="spinner" size="30"></Spinner>
+      <Post
+        v-else
+        class="post"
+        v-for="post in userProfile.posts"
+        :key="post.id"
+        :post="post"
+      />
     </div>
   </div>
 </template>

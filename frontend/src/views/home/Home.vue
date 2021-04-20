@@ -12,6 +12,7 @@ export default {
     posts() {
       return this.$store.getters.getPosts;
     },
+    
   },
 
   components: {

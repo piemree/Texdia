@@ -21,6 +21,11 @@ export default {
     return state.imageSrc;
   },
   getUserProfile(state) {
+    
     return state.userProfile;
   },
+  getIsFollow(state){
+   
+    return state.isFollow
+  }
 };

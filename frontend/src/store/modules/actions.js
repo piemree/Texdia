@@ -43,6 +43,7 @@ export default {
 
     vuexContext.commit("isAuth", Object.keys(response.data).length !== 0);
     vuexContext.commit("setUser", response.data);
+    console.log(response.data);
     return response;
   },
   logoutUser(vuexContext) {
@@ -84,8 +85,33 @@ export default {
       `http://localhost:5000/api/posts/${user}`
     );
 
-   
-      vuexContext.commit("setUserProfile",userProfile.data)
-    return userProfile
+    vuexContext.commit("setUserProfile", userProfile.data);
+
+    vuexContext.commit("setIsFollow", userProfile.data.isFollow);
+    return userProfile;
+  },
+
+  async followUser(vuexContext, id) {
+    let response = await axios.post("http://localhost:5000/api/users/follow", {
+      id,
+    });
+
+    let following = response.data.isFollow;
+    vuexContext.commit("setUserProfileInfo", response.data.profile);
+
+    vuexContext.commit("setIsFollow", following);
+  },
+  async unfollowUser(vuexContext, id) {
+    let response = await axios.post(
+      "http://localhost:5000/api/users/unfollow",
+      {
+        id,
+      }
+    );
+
+    let following = response.data.isFollow;
+    vuexContext.commit("setUserProfileInfo", response.data.profile);
+
+    vuexContext.commit("setIsFollow", following);
   },
 };

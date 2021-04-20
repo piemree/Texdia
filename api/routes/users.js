@@ -75,4 +75,73 @@ router.get(
   }
 );
 
+router.post(
+  "/follow",
+  passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
+    let followedUser = req.body.id;
+    let currentUser = req.user.id;
+
+    try {
+      let followUser = await User.findByIdAndUpdate(
+        followedUser,
+        { $push: { followers: currentUser } },
+        { new: true }
+      );
+      let currUser = await User.findByIdAndUpdate(
+        currentUser,
+        { $push: { following: followedUser } },
+        { new: true }
+      );
+      let isFollowed = followUser.followers.find(
+        (userId) => userId === req.user.id
+      );
+
+      res
+        .status(200)
+        .json({
+          currentUser: currUser,
+          profile: followUser,
+          isFollow: isFollowed ? true : false,
+        });
+    } catch (error) {
+      res.status(404).json(error);
+    }
+  }
+);
+
+router.post(
+  "/unfollow",
+  passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
+    let followedUser = req.body.id;
+    let currentUser = req.user.id;
+
+    try {
+      let followUser = await User.findByIdAndUpdate(
+        followedUser,
+        { $pull: { followers: currentUser } },
+        { new: true }
+      );
+      let currUser = await User.findByIdAndUpdate(
+        currentUser,
+        { $pull: { following: followedUser } },
+        { new: true }
+      );
+      let isFollowed = followUser.followers.find(
+        (userId) => userId === req.user.id
+      );
+
+      res
+        .status(200)
+        .json({
+          currentUser: currUser,
+          profile: followUser,
+          isFollow: isFollowed ? true : false,
+        });
+    } catch (error) {
+      res.status(404).json(error);
+    }
+  }
+);
 module.exports = router;

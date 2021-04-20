@@ -10,6 +10,7 @@ export default {
   },
   setUser(state, user) {
     state.user = user;
+    // state.userProfie ? false : (state.userProfie = user);
   },
   isAuth(state, isAuth) {
     state.authState = isAuth;
@@ -24,5 +25,13 @@ export default {
   },
   setUserProfile(state, userProfile) {
     state.userProfile = userProfile;
+  },
+  setUserProfileInfo(state, userProfile) {
+    state.userProfile.user = userProfile;
+  },
+  setIsFollow(state, isFollow) {
+    
+   
+    state.isFollow=isFollow
   },
 };

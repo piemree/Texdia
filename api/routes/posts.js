@@ -31,16 +31,34 @@ router.get("/", (req, res) => {
     .catch((err) => res.status(404).json(err));
 });
 
-router.get("/:id", async (req, res) => {
-  try {
-    let user = await User.findOne({ login: req.params.id });
-    user["password"] = "secret";
-    let posts = await Post.find({ user: { id: user.id, login: user.login } });
+router.get(
+  "/:id",
+  passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
+    try {
+      let user = await User.findOne({ login: req.params.id });
 
-    res.status(200).json({ user: user, posts: posts });
-  } catch (error) {
-    res.status(404).json(error);
+      let isFollowed = user.followers.find((userId) => {
+        return userId === req.user.id;
+      });
+     
+      user["password"] = "secret";
+      let posts = await Post.find({
+        "user.id": user.id,
+      }).sort({ createdAt: -1 });
+
+      res
+        .status(200)
+        .json({
+          user: user,
+          posts: posts,
+          isMe: req.user.id === user.id,
+          isFollow: isFollowed ? true : false,
+        });
+    } catch (error) {
+      res.status(404).json(error);
+    }
   }
-});
+);
 
 module.exports = router;
