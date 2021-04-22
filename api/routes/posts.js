@@ -41,24 +41,73 @@ router.get(
       let isFollowed = user.followers.find((userId) => {
         return userId === req.user.id;
       });
-     
+
       user["password"] = "secret";
       let posts = await Post.find({
         "user.id": user.id,
       }).sort({ createdAt: -1 });
 
-      res
-        .status(200)
-        .json({
-          user: user,
-          posts: posts,
-          isMe: req.user.id === user.id,
-          isFollow: isFollowed ? true : false,
-        });
+      res.status(200).json({
+        user: user,
+        posts: posts,
+        isMe: req.user.id === user.id,
+        isFollow: isFollowed ? true : false,
+      });
     } catch (error) {
       res.status(404).json(error);
     }
   }
 );
 
+router.post(
+  "/like",
+  passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
+    let postId = req.body.id;
+    let currentUser = req.user.id;
+
+    try {
+      let post = await Post.findByIdAndUpdate(
+        postId,
+        { $push: { likes: currentUser } },
+        { new: true }
+      );
+
+      let isLiked = post.likes.find((userId) => userId === req.user.id);
+
+      res.status(200).json({
+        post: post,
+        isLiked: isLiked ? true : false,
+      });
+    } catch (error) {
+      res.status(404).json(error);
+    }
+  }
+);
+
+router.post(
+  "/unlike",
+  passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
+    let postId = req.body.id;
+    let currentUser = req.user.id;
+
+    try {
+      let post = await Post.findByIdAndUpdate(
+        postId,
+        { $pull: { likes: currentUser } },
+        { new: true }
+      );
+
+      let isLiked = post.likes.find((userId) => userId === req.user.id);
+
+      res.status(200).json({
+        post: post,
+        isLiked: isLiked ? true : false,
+      });
+    } catch (error) {
+      res.status(404).json(error);
+    }
+  }
+);
 module.exports = router;

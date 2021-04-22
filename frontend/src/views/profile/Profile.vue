@@ -40,16 +40,16 @@ export default {
     userProfile() {
       return this.$store.getters.getUserProfile;
     },
-    isFollow(){
-      return this.$store.getters.getIsFollow
-    }
+    isFollow() {
+      return this.$store.getters.getIsFollow;
+    },
   },
   watch: {
-    async $route() {
+      async $route() {
       this.spinner = true;
       await this.$store.dispatch("getUserAndPosts", this.$route.params.id);
       this.spinner = false;
-    },
+    },  
   },
 };
 </script>
@@ -65,7 +65,7 @@ export default {
           <button>Settings</button>
         </div>
         <div v-else class="setting-button">
-          <button v-if="!isFollow"  @click="follow">Follow</button>
+          <button v-if="!isFollow" @click="follow">Follow</button>
           <button v-else @click="unfollow">Unfollow</button>
         </div>
 
@@ -100,7 +100,7 @@ export default {
         v-else
         class="post"
         v-for="post in userProfile.posts"
-        :key="post.id"
+        :key="post._id"
         :post="post"
       />
     </div>

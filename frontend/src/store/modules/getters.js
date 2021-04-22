@@ -27,5 +27,8 @@ export default {
   getIsFollow(state){
    
     return state.isFollow
+  },
+  getLikes(state){
+    return state.posts
   }
 };

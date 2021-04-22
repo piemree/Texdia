@@ -6,8 +6,10 @@ import jwt_decode from "jwt-decode";
 import setAuthHeader from "./utils/setAuthHeader";
 
 
-
 let start = async function() {
+
+
+
   let token = localStorage.getItem("jwtToken");
 
   if (token) {

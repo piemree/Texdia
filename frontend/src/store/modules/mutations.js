@@ -3,14 +3,11 @@ export default {
     state.errors = errors;
   },
   setLoginErrors(state, loginErrors) {
-    state.loginErrors = loginErrors;
+    state.loginErrors = Object.assign(state.loginErrors, loginErrors);
   },
-  setToken(state, token) {
-    state.token = token;
-  },
+
   setUser(state, user) {
-    state.user = user;
-    // state.userProfie ? false : (state.userProfie = user);
+    state.user = user
   },
   isAuth(state, isAuth) {
     state.authState = isAuth;
@@ -19,6 +16,7 @@ export default {
     state.posts = [];
   },
   setPosts(state, posts) {
+    state.posts=[]
     posts.map((post) => {
       state.posts.push(post);
     });
@@ -30,8 +28,21 @@ export default {
     state.userProfile.user = userProfile;
   },
   setIsFollow(state, isFollow) {
-    
-   
-    state.isFollow=isFollow
+    state.isFollow = isFollow;
   },
+
+  updatePost(state, data) {
+    let index = state.posts.findIndex((el) => {
+      return data.post._id === el._id;
+    });
+    let newPost = { ...data.post, isLiked: data.isLiked };
+    state.posts[index] = Object.assign(state.posts[index], newPost);
+  },
+  updateProfilePosts(state,data){
+    let index = state.userProfile.posts.findIndex((el) => {
+      return data.post._id === el._id;
+    });
+    let newPost = { ...data.post, isLiked: data.isLiked };
+    state.posts[index] = Object.assign(state.posts[index], newPost);
+  }
 };

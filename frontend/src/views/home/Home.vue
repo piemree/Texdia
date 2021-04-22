@@ -1,12 +1,19 @@
 <script>
 import Spinner from "vue-simple-spinner";
+
 import SendPost from "../../components/SendPost";
 import Post from "../../components/Post";
+import ToggleButton from "../../components/ToggleButton";
 export default {
   data() {
     return {
       spinner: true,
     };
+  },
+  watch:{
+"$store.getters"(){
+  console.log("nwe post");
+}
   },
   computed: {
     posts() {
@@ -19,11 +26,14 @@ export default {
     Post,
     SendPost,
     Spinner,
+    ToggleButton
+   
   },
   async created() {
     await this.$store.dispatch("getAllPosts");
     this.spinner = false;
   },
+ 
 };
 </script>
 <template >
@@ -32,11 +42,15 @@ export default {
       <SendPost />
     </div>
     <div class="all-posts">
+      <div class="toggle">
+        <ToggleButton/>
+      </div>
       <Spinner v-if="spinner" size="30"></Spinner>
+      
       <Post
         v-else
-        v-for="(post, index) in posts"
-        :key="index"
+        v-for="post in posts"
+        :key="post._id"
         :post="post"
         class="post"
       />
@@ -45,6 +59,9 @@ export default {
 </template>
 
 <style scoped >
+.toggle{
+  margin: 1rem;
+}
 .image {
   height: 500px;
   width: 100%;

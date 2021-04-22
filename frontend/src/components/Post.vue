@@ -10,12 +10,22 @@ export default {
         hour: "numeric",
         minute: "numeric",
       },
+     
     };
   },
-
+  
   computed: {
     profile() {
       return this.$store.getters.getimageSrc;
+    },
+  },
+  methods: {
+  
+    likePost(){
+      this.$store.dispatch("likePost",this.post._id)
+    },
+    unlikePost(){
+      this.$store.dispatch("unlikePost",this.post._id)
     },
   },
   props: {
@@ -34,7 +44,11 @@ export default {
       </router-link>
       <div class="context">
         <div class="user-info">
-          <router-link class="username" tag="span" :to="`/profile/${post.user.login}`">
+          <router-link
+            class="username"
+            tag="span"
+            :to="`/profile/${post.user.login}`"
+          >
             {{ post.user.login }}
           </router-link>
           <span class="share-time">{{
@@ -50,7 +64,7 @@ export default {
     </div>
     <div class="post-icons">
       <div>
-        <span class="material-icons">
+        <span  class="material-icons">
           <span class="material-icons-outlined"> chat_bubble_outline </span>
         </span>
       </div>
@@ -58,13 +72,18 @@ export default {
         <span class="material-icons">repeat </span>
       </div>
       <div>
-        <span class="material-icons">favorite_border</span>
+        <span v-if="post.isLiked" @click="unlikePost"  class="material-icons btn-unlike">favorite</span>
+        <span v-else @click="likePost" class="material-icons">favorite_border</span>
+       <span>{{post.likes.length}}</span>
       </div>
     </div>
   </div>
 </template>
 
 <style scoped >
+.btn-unlike {
+  color: red !important;
+}
 .text {
   margin: 1rem 0;
 }

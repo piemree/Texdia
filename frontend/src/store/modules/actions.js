@@ -72,7 +72,7 @@ export default {
   async getAllPosts(vuexContext) {
     try {
       let posts = await axios.get("http://localhost:5000/api/posts/");
-
+      vuexContext.dispatch("likeController", posts.data);
       vuexContext.commit("setPosts", posts.data);
     } catch (error) {
       console.log(error.response);
@@ -84,9 +84,9 @@ export default {
     let userProfile = await axios.get(
       `http://localhost:5000/api/posts/${user}`
     );
-
+   
+    vuexContext.dispatch("likeController", userProfile.data.posts);
     vuexContext.commit("setUserProfile", userProfile.data);
-
     vuexContext.commit("setIsFollow", userProfile.data.isFollow);
     return userProfile;
   },
@@ -113,5 +113,29 @@ export default {
     vuexContext.commit("setUserProfileInfo", response.data.profile);
 
     vuexContext.commit("setIsFollow", following);
+  },
+
+  async likePost(vuexContext, postId) {
+    let response = await axios.post(`http://localhost:5000/api/posts/like`, {
+      id: postId,
+    });
+
+    vuexContext.commit("updatePost", response.data);
+  },
+  async unlikePost(vuexContext, postId) {
+    let response = await axios.post(`http://localhost:5000/api/posts/unlike`, {
+      id: postId,
+    });
+
+    vuexContext.commit("updatePost", response.data);
+  },
+  likeController(vuexContext, posts) {
+   
+    let currentUser = vuexContext.getters.getUser._id;
+    posts.map((post) => {
+      let isLiked = post.likes.some((user) => user === currentUser);
+
+      post.isLiked = isLiked;
+    });
   },
 };

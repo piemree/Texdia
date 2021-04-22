@@ -11,6 +11,11 @@ const postSchema = new Schema(
       type: Object,
       required: true,
     },
+    isLiked: {
+      type: Boolean,
+      default: false,
+    },
+    likes: [],
   },
   { timestamps: true }
 );
