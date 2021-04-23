@@ -7,7 +7,7 @@ export default {
   },
 
   setUser(state, user) {
-    state.user = user
+    state.user = user;
   },
   isAuth(state, isAuth) {
     state.authState = isAuth;
@@ -16,7 +16,7 @@ export default {
     state.posts = [];
   },
   setPosts(state, posts) {
-    state.posts=[]
+    state.posts = [];
     posts.map((post) => {
       state.posts.push(post);
     });
@@ -32,17 +32,29 @@ export default {
   },
 
   updatePost(state, data) {
-    let index = state.posts.findIndex((el) => {
-      return data.post._id === el._id;
-    });
-    let newPost = { ...data.post, isLiked: data.isLiked };
-    state.posts[index] = Object.assign(state.posts[index], newPost);
+    if (state.posts) {
+      let index = state.posts.findIndex((el) => {
+        return data.post._id === el._id;
+      });
+
+      if (index !== -1) {
+        let newPost = { ...data.post, isLiked: data.isLiked };
+        state.posts[index] = Object.assign(state.posts[index], newPost);
+      }
+    }
   },
-  updateProfilePosts(state,data){
-    let index = state.userProfile.posts.findIndex((el) => {
-      return data.post._id === el._id;
-    });
-    let newPost = { ...data.post, isLiked: data.isLiked };
-    state.posts[index] = Object.assign(state.posts[index], newPost);
-  }
+  updateProfilePosts(state, data) {
+    if (state.userProfile.posts) {
+      let index = state.userProfile.posts.findIndex((el) => {
+        return data.post._id === el._id;
+      });
+      if (index !== -1) {
+        let newPost = { ...data.post, isLiked: data.isLiked };
+        state.userProfile.posts[index] = Object.assign(
+          state.userProfile.posts[index],
+          newPost
+        );
+      }
+    }
+  },
 };

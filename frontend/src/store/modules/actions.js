@@ -43,13 +43,13 @@ export default {
 
     vuexContext.commit("isAuth", Object.keys(response.data).length !== 0);
     vuexContext.commit("setUser", response.data);
-    console.log(response.data);
+
     return response;
   },
   logoutUser(vuexContext) {
     localStorage.removeItem("jwtToken");
     setAuthHeader();
-    vuexContext.commit("setUser", null);
+    vuexContext.commit("setUser", {});
     vuexContext.commit("isAuth", false);
     router.push("/login");
   },
@@ -84,7 +84,7 @@ export default {
     let userProfile = await axios.get(
       `http://localhost:5000/api/posts/${user}`
     );
-   
+
     vuexContext.dispatch("likeController", userProfile.data.posts);
     vuexContext.commit("setUserProfile", userProfile.data);
     vuexContext.commit("setIsFollow", userProfile.data.isFollow);
@@ -121,6 +121,7 @@ export default {
     });
 
     vuexContext.commit("updatePost", response.data);
+    vuexContext.commit("updateProfilePosts", response.data);
   },
   async unlikePost(vuexContext, postId) {
     let response = await axios.post(`http://localhost:5000/api/posts/unlike`, {
@@ -128,9 +129,9 @@ export default {
     });
 
     vuexContext.commit("updatePost", response.data);
+    vuexContext.commit("updateProfilePosts", response.data);
   },
   likeController(vuexContext, posts) {
-   
     let currentUser = vuexContext.getters.getUser._id;
     posts.map((post) => {
       let isLiked = post.likes.some((user) => user === currentUser);
