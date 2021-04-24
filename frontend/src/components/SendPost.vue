@@ -9,7 +9,12 @@ export default {
   },
   methods: {
     async submitPost() {
-       await this.$store.dispatch("addPost",this.post.text)
+      await this.$store.dispatch("addPost", this.post.text);
+    },
+  },
+  computed: {
+    user() {
+      return this.$store.getters.getUser;
     },
   },
 };
@@ -19,15 +24,12 @@ export default {
     <div class="create-post">
       <div class="post-context">
         <div class="profile">
-          <img
-            src="https://images.unsplash.com/photo-1529665253569-6d01c0eaf7b6?ixid=MXwxMjA3fDB8MHxzZWFyY2h8M3x8cHJvZmlsZXxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&w=1000&q=80"
-            alt=""
-          />
+          <img :src="user.picture" alt="picture" />
         </div>
         <div class="context">
           <div class="text">
             <textarea
-            v-model="post.text"
+              v-model="post.text"
               placeholder="What's Happend?"
               class="post-input"
             ></textarea>

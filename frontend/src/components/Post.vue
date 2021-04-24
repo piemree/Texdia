@@ -14,11 +14,6 @@ export default {
     };
   },
   
-  computed: {
-    profile() {
-      return this.$store.getters.getimageSrc;
-    },
-  },
   methods: {
   
     likePost(){
@@ -40,7 +35,7 @@ export default {
   <div class="post">
     <div class="post-context">
       <router-link class="profile" tag="div" to="/">
-        <img :src="profile" alt="profile" />
+        <img :src="post.user.picture" alt="profile" />
       </router-link>
       <div class="context">
         <div class="user-info">

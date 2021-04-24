@@ -8,11 +8,12 @@ router.post(
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     let text = req.body.text.trim();
-
+    
     const newPost = new Post({
       user: {
         id: req.user.id,
         login: req.user.login,
+        picture:req.user.picture
       },
       text: text,
     });

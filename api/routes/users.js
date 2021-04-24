@@ -69,6 +69,7 @@ router.get(
       _id: req.user._id,
       email: req.user.email,
       login: req.user.login,
+      picture: req.user.picture,
       followers: req.user.followers,
       following: req.user.following,
     });

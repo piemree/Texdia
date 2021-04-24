@@ -11,10 +11,6 @@ export default {
         month: "long",
       },
       spinner: true,
-      user: {
-        profileUrl:
-          "https://images.unsplash.com/photo-1529665253569-6d01c0eaf7b6?ixid=MXwxMjA3fDB8MHxzZWFyY2h8M3x8cHJvZmlsZXxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&w=1000&q=80",
-      },
     };
   },
   methods: {
@@ -45,11 +41,11 @@ export default {
     },
   },
   watch: {
-      async $route() {
+    async $route() {
       this.spinner = true;
       await this.$store.dispatch("getUserAndPosts", this.$route.params.id);
       this.spinner = false;
-    },  
+    },
   },
 };
 </script>
@@ -58,7 +54,7 @@ export default {
     <Spinner v-if="spinner" size="50" style="padding: 10rem"></Spinner>
     <div v-else class="profile-header">
       <div class="profile-picture">
-        <img :src="user.profileUrl" alt="profile-pic" />
+        <img :src="userProfile.user.picture" alt="profile-pic" />
       </div>
       <div class="profile-info">
         <div v-if="userProfile.isMe" class="setting-button">
