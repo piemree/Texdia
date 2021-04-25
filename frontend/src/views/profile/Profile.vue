@@ -5,6 +5,7 @@ import Spinner from "vue-simple-spinner";
 export default {
   data() {
     return {
+      selectedFile:null,
       options: {
         year: "numeric",
         day: "numeric",
@@ -23,6 +24,15 @@ export default {
     async unfollow() {
       await this.$store.dispatch("unfollowUser", this.userProfile.user._id);
     },
+    onChange(e){
+   this.onUpload(e.srcElement.files[0])
+    },
+    onUpload(file){
+      const fd=new FormData();
+      fd.append("image",file,file.name)
+      console.log(fd);
+    }
+   
   },
   components: {
     Post,
@@ -58,7 +68,9 @@ export default {
       </div>
       <div class="profile-info">
         <div v-if="userProfile.isMe" class="setting-button">
-          <button>Settings</button>
+          
+          <button @click="$refs.fileInput.click()"> Update Profile</button>
+          <input @change="onChange" type="file" id="selectedFile" style="display: none;" :ref="'fileInput'" />
         </div>
         <div v-else class="setting-button">
           <button v-if="!isFollow" @click="follow">Follow</button>
@@ -127,11 +139,14 @@ export default {
 .name-username {
   width: 100%;
 }
+
 .setting-button button {
   float: right;
-  width: 8rem;
+  width: 9rem;
   height: 2.5rem;
-  border: 0.2rem solid var(--grey6);
+  border: none;
+  background-color: rgb(29, 161, 242);
+  color: #FFF;
   border-radius: 1.2rem;
   cursor: pointer;
 }
@@ -149,7 +164,7 @@ export default {
 .profile-picture img {
   max-width: 100%;
   max-height: 100%;
-  border: 0.2rem solid var(--grey6);
+  border: 1px solid var(--grey6);
   border-radius: 0.5rem;
   cursor: pointer;
 }

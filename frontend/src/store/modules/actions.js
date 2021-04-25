@@ -131,6 +131,15 @@ export default {
     vuexContext.commit("updatePost", response.data);
     vuexContext.commit("updateProfilePosts", response.data);
   },
+
+  async searchUsers(vuexContext, key) {
+    let result = await axios.post("http://localhost:5000/api/users/search", {
+      key,
+    });
+console.log(result.data);
+    vuexContext.commit("updateSearchUsers", result.data);
+  },
+
   likeController(vuexContext, posts) {
     let currentUser = vuexContext.getters.getUser._id;
     posts.map((post) => {

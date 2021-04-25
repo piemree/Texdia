@@ -7,7 +7,7 @@ export default {
   components: {
     Nav,
     MainHeader,
-    RightNav
+    RightNav,
   },
 };
 </script>
@@ -20,15 +20,21 @@ export default {
       <MainHeader />
       <router-view></router-view>
     </div>
-    <nav class="chat-section">
-        <RightNav/>
+    <nav class="search-section">
+      <RightNav />
     </nav>
   </div>
 </template>
 
 <style >
-.chat-section {
-  background-color: inherit;
+.search-section {
+  position: sticky;
+  top: 0;
+  right: 0;
+  max-width: 100%;
+  min-width: 8rem;
+  width: 100%;
+  height: 100vh;
   grid-column-start: 3;
   grid-column-end: 4;
 }
@@ -37,7 +43,7 @@ export default {
   top: 0;
   left: 0;
   max-width: 100%;
-min-width: 8rem;
+  min-width: 8rem;
   width: 100%;
   height: 100vh;
   grid-column-start: 1;
@@ -59,7 +65,9 @@ min-width: 8rem;
   grid-template-columns: 1.5fr 3fr 2fr;
   background-color: var(--grey1);
   min-height: 100vh;
-  height: 100%;
+  
+  height: 100vh;
   max-width: 100%;
+  grid-gap: 3rem;
 }
 </style>

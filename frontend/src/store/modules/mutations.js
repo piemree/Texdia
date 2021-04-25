@@ -57,4 +57,10 @@ export default {
       }
     }
   },
+  updateSearchUsers(state, data){
+    state.searchUsers = [];
+    data.map((user) => {
+      state.searchUsers.push(user);
+    });
+  }
 };

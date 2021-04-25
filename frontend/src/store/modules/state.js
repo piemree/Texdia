@@ -1,6 +1,7 @@
 export default {
   posts: [],
   user: {},
+  searchUsers:[],
   isFollow: false,
   userProfile: {},
   imageSrc: "",

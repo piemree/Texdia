@@ -98,13 +98,11 @@ router.post(
         (userId) => userId === req.user.id
       );
 
-      res
-        .status(200)
-        .json({
-          currentUser: currUser,
-          profile: followUser,
-          isFollow: isFollowed ? true : false,
-        });
+      res.status(200).json({
+        currentUser: currUser,
+        profile: followUser,
+        isFollow: isFollowed ? true : false,
+      });
     } catch (error) {
       res.status(404).json(error);
     }
@@ -133,16 +131,21 @@ router.post(
         (userId) => userId === req.user.id
       );
 
-      res
-        .status(200)
-        .json({
-          currentUser: currUser,
-          profile: followUser,
-          isFollow: isFollowed ? true : false,
-        });
+      res.status(200).json({
+        currentUser: currUser,
+        profile: followUser,
+        isFollow: isFollowed ? true : false,
+      });
     } catch (error) {
       res.status(404).json(error);
     }
   }
 );
+router.post("/search", async (req, res) => {
+  let key = req.body.key;
+
+  let result = await User.find({ login: { $regex: `^${key}`, $options: "i" } }).limit(5)
+
+  res.status(200).json(result);
+});
 module.exports = router;

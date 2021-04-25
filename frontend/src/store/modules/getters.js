@@ -30,5 +30,8 @@ export default {
   },
   getLikes(state){
     return state.posts
-  }
+  },
+  getSearchUsers(state){
+    return state.searchUsers
+  },
 };

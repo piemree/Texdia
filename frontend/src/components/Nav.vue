@@ -14,7 +14,6 @@ export default {
     logout() {
       this.$store.dispatch("logoutUser");
     },
-    
   },
 };
 </script>
@@ -34,35 +33,20 @@ export default {
           <span class="link-text">Home</span></router-link
         >
       </li>
-      <li class="list-item">
-        <router-link class="link-item" tag="a" to="/notifications">
-          <span class="material-icons item-icons"> notifications </span>
-          <span class="link-text">Notifications</span></router-link
-        >
-      </li>
-      <li class="list-item">
-        <router-link class="link-item" tag="a" to="/messages">
-          <span class="material-icons item-icons">email</span>
-          <span class="link-text">Messages</span></router-link
-        >
-      </li>
+
       <li class="list-item">
         <router-link class="link-item" tag="a" :to="`/profile/${user.login}`">
           <span class="material-icons item-icons">person</span>
           <span class="link-text">Profile</span></router-link
         >
       </li>
-     
+
       <li class="tweet-button">
         <button>Tweet</button>
       </li>
       <li @click="showUserInfo = !showUserInfo" class="list-item item-profile">
         <div class="link-item">
-          <span class="profile"
-            ><img
-              :src="user.picture"
-              alt="picture"
-          /></span>
+          <span class="profile"><img :src="user.picture" alt="picture" /></span>
           <div class="name-username">
             <div class="name">{{ user.login }}</div>
           </div>
@@ -186,6 +170,7 @@ export default {
 .tweet-button {
   min-height: 3.5rem;
   display: flex;
+  width: 100%;
   align-items: center;
   padding: 0 1rem 0 0;
   margin: 1rem 0;
