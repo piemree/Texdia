@@ -41,7 +41,7 @@ router.post("/login", async (req, res) => {
   if (!isValid) return res.status(404).json(errors);
 
   let user = await User.findOne({ email: req.body.email });
-
+  
   if (!user) {
     errors.email = "email not registered";
     return res.status(404).json(errors);
@@ -144,7 +144,9 @@ router.post(
 router.post("/search", async (req, res) => {
   let key = req.body.key;
 
-  let result = await User.find({ login: { $regex: `^${key}`, $options: "i" } }).limit(5)
+  let result = await User.find({
+    login: { $regex: `^${key}`, $options: "i" },
+  }).limit(5);
 
   res.status(200).json(result);
 });
