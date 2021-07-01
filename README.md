@@ -13,4 +13,4 @@ cd .. && cd client && npm run serve
 
 ```
 
-##### After all thoso commands. hopefully you will see my tiny clone app.
+##### After all those commands. hopefully you will see my tiny clone app.
